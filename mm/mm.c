@@ -12,6 +12,18 @@
 #include "arm_neon.h"
 void gemm4x4_vec(float *a, int sa, float *b, int sb, float *c, int sc)
 {
+    float32x4_t vb[4];
+    for(int i = 0; i < 4; i++)
+        vb[i] = vld1q_f32(b + i*sb);
+    for(int y = 0; y < 4; y++){
+        float32x4_t va = vld1q_f32(a + y * sa);
+        float32x4_t vc = vld1q_f32(c + y * sc);
+        vc = vmlaq_laneq_f32(vc, vb[0], va, 0);
+        vc = vmlaq_laneq_f32(vc, vb[1], va, 1);
+        vc = vmlaq_laneq_f32(vc, vb[2], va, 2);
+        vc = vmlaq_laneq_f32(vc, vb[3], va, 3);
+        vst1q_f32(c + y * sc, vc);
+    }
 }
 
 int main(void)

@@ -1,4 +1,4 @@
-CXX=clang++ -O3
+CXX=g++ -O3
 HALIDE_DISTRIB=~/Halide/build/distrib
 CXX_FLAGS=-fno-rtti -std=c++11 -I $(HALIDE_DISTRIB)/include/ -I $(HALIDE_DISTRIB)/tools -L $(HALIDE_DISTRIB)/bin/
 CXX_LIBS=-L $(HALIDE_DISTRIB)/bin/ -lHalide -ltinfo -lpthread -ldl
